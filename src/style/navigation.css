@@ -1,0 +1,31 @@
+.navibar {
+    display: inline-block;
+    position: fixed;
+    height: 100%;
+    background-color: green;
+}
+.item{
+    text-align: center;
+}
+.menu_logo{
+   font-size: 50px;
+}
+.loginbox{
+    height: 76px;
+    background-color: silver;
+    font-size: 25px;
+}
+.login_icon{
+    font-size: 25px;
+}
+.left{
+    margin-right: 10px;
+}
+.right{
+    margin-left: 10px;
+}
+
+.login{
+    display: inline-block;
+    cursor: pointer;
+}
