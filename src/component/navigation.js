@@ -3,6 +3,8 @@ import { Header, Menu } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { login_modal_open } from '../reducer/loginBoxReducer'
 import '../style/navigation.css'
+import LoginMenu from './loginComponent/loginMenu';
+import CurrentMenu from './loginComponent/currentMenu'
 
 class Navigation extends Component {
 
@@ -11,7 +13,8 @@ class Navigation extends Component {
     handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 
     render() {
-        const { activeItem } = this.state
+        const { activeItem } = this.state;
+        // const { user } = this.props;
         console.log(this.props.user)
 
         return (
@@ -24,10 +27,7 @@ class Navigation extends Component {
                     <Header as='h1' >Hokeys</Header>
 
                 </Menu.Item>
-                {this.props.user ? "": <Menu.Item className="loginbox">
-                    <div className="login" onClick={this.props.openModal}><i className="fas fa-sign-in-alt login_icon left" /></div>/ <i className="fas fa-user-plus login_icon right"></i>
-                </Menu.Item>
-                
+                {this.props.user ? <CurrentMenu user={this.state.user}/> : <LoginMenu openModal={this.props.openModal}/>
                 }
 
                 <Menu.Item name='agora' active={activeItem === 'agora'} onClick={this.handleItemClick}>

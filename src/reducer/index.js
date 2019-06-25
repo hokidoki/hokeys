@@ -1,11 +1,14 @@
-import {createStore, combineReducers,applyMiddleware,compose} from 'redux';
+import { createStore, combineReducers,applyMiddleware,compose } from 'redux';
+import thunk from 'redux-thunk'
+
 import  loginModalReducer from './loginBoxReducer'
-import penderMiddleware, {penderReducer} from 'redux-pender'
-import authReducer from './authReducer';
+import authReducer from './auth/reducer'
+
+
 
 
 export function configureStore(){
-    const middleware = applyMiddleware(penderMiddleware());
+    const middleware = applyMiddleware(thunk);
 
     const composed = window.__REDUX_DEVTOOLS_EXTENSION__?
     compose(
@@ -16,7 +19,6 @@ export function configureStore(){
     
     return createStore(
         combineReducers({
-            pender : penderReducer,
             auth : authReducer,
             loginModal : loginModalReducer
         }),

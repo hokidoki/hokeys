@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "firebase": "^6.2.0",
+    "history": "^4.9.0",
     "react": "^16.8.6",
     "react-awesome-modal": "^2.0.5",
     "react-dom": "^16.8.6",
@@ -14,6 +15,7 @@
     "redux": "^4.0.1",
     "redux-actions": "^2.6.5",
     "redux-pender": "^2.0.12",
+    "redux-thunk": "^2.3.0",
     "semantic-ui-react": "^0.87.2"
   },
   "scripts": {
