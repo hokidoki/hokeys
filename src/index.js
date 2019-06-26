@@ -7,11 +7,12 @@ import { configureStore } from './reducer/index'
 import firebase from 'firebase'
 
 import { createBrowserHistory } from 'history'
-import { ConnectRouter } from 'connected-react-router'
+import { ConnectedRouter } from 'connected-react-router'
 
 import * as authActions from './reducer/auth/actions'
 
-const store = configureStore();
+const history = createBrowserHistory();
+const store = configureStore(history);
 
 var config ={
     apiKey: "AIzaSyBFqFWXNecwYdzVugabCOgWxMmh9uzDezs",
@@ -31,6 +32,8 @@ firebase.auth().onAuthStateChanged((user)=>{
 
 ReactDOM.render(
     <Provider store={store}>
-        <App />
+        <ConnectedRouter history={history}>
+            <App />
+        </ConnectedRouter>
     </Provider>
     , document.getElementById('root'));
