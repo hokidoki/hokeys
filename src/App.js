@@ -4,12 +4,13 @@ import Mainpage from './page/mainpage'
 import { connect } from 'react-redux'
 import ModalPortal from './modal/loginModalPotal'
 import LoginModal from './component/login_modal'
+import './style/app.css'
 class App extends Component {
   
   render() {
    
     return (
-      <div>
+      <div className="containner">
          {this.props.modal? 
          <ModalPortal>
             <LoginModal></LoginModal>

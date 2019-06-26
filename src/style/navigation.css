@@ -1,5 +1,5 @@
 .navibar {
-    display: inline-block;
+    flex-basis : 2.5rem; 
     position: fixed;
     height: 100%;
     background-color: green;
