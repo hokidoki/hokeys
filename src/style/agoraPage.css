@@ -4,6 +4,7 @@
     width: 80%;
     height: 100%;
     margin-left: 50px;
+    /* max-width: 1450px; */
 }
 .sideMenu{
     flex-basis: 100px;
@@ -11,4 +12,20 @@
     position: fixed;
     top: 134px;
     border: none
+}
+.sideMenuPage{
+    flex-basis: 210px;
+}
+
+.articleListPage{
+    flex-grow: 1;
+}
+
+.notice{
+    height: 134px;
+}
+
+#articleListHeader{
+    margin: 0 0 0 0;
+    padding-left: 10px;
 }

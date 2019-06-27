@@ -4,7 +4,7 @@ import Mainpage from './page/mainpage'
 import { connect } from 'react-redux'
 import ModalPortal from './modal/loginModalPotal'
 import LoginModal from './component/login_modal'
-import './style/app.css'
+// import './style/'
 class App extends Component {
   
   render() {

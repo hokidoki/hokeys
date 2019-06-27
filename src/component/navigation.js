@@ -57,12 +57,12 @@ class Navigation extends Component {
 
         return (
             <Menu vertical className="navibar">
-                <Menu.Item
+                <Menu.Item id="Home"
                     name='home'
                     active={activeItem === 'home'}
                     onClick={this.goToHome}
                 >
-                    <Header as='h1' >Hokeys</Header>
+                <Header as='h1' >Hokeys</Header>
 
                 </Menu.Item>
                 {this.props.user ? <CurrentMenu user={this.state.user}/> : <LoginMenu openModal={this.props.openModal}/>

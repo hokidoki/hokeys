@@ -45,7 +45,7 @@ export const signInWithGoogle = ()=>{
         })
     }
 }
-
+//로그아웃
 const signOutRequest = createAction(types.SIGN_OUT_REQUEST);
 const signOutSuccess = createAction(types.SIGN_OUT_SUCCESS);
 const signOutFailed = createAction(types.SIGN_OUT_FAILED);

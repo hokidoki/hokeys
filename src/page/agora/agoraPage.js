@@ -1,13 +1,16 @@
 import React, { Component } from 'react'
 import '../../style/agoraPage.css'
-import SideMenu from '../../component/common/sideMenu'
+
+import SideMenuPage from '../sideMenuPage/sideMenuPage'
+import ArticleListPage from '../articleListPage/articleListPage'
 
 
 export default class AgoraPage extends Component {
     render() {
         return (
             <div className="agoraPage">
-                <SideMenu></SideMenu>
+                <SideMenuPage></SideMenuPage>
+                <ArticleListPage></ArticleListPage>
             </div>
         )
     }
