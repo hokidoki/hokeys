@@ -1,10 +1,16 @@
 import React, { Component } from 'react'
-import { Menu } from 'semantic-ui-react'
+import { Menu,Button,Icon } from 'semantic-ui-react'
+import { withRouter } from 'react-router-dom'
+import { connect } from 'react-redux'
 
-export default class ArticleListHeader extends Component {
+ class ArticleListHeader extends Component {
   state = { activeItem: 'closest' }
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
+
+  goToWriteArticle =()=>{
+    this.props.history.push('/agora/addArticle')
+  }
 
   render() {
     const { activeItem } = this.state
@@ -27,7 +33,10 @@ export default class ArticleListHeader extends Component {
           active={activeItem === '공감순'}
           onClick={this.handleItemClick}
         />
+        <Button secondary id="writeArticleButton" onClick={this.goToWriteArticle}><Icon name="write square"/>글쓰기</Button>
       </Menu>
     )
   }
 }
+
+export default connect(null,null)(withRouter(ArticleListHeader))

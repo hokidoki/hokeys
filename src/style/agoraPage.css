@@ -26,6 +26,13 @@
 }
 
 #articleListHeader{
+    position: relative;
     margin: 0 0 0 0;
     padding-left: 10px;
+}
+
+#writeArticleButton{
+    position: absolute;
+    right: 0;
+    float: right;
 }
