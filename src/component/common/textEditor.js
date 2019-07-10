@@ -3,6 +3,14 @@ import React from 'react'
 import PropTypes from 'prop-types'
 // import ReactDOM from 'react-dom';
 import '../../style/editor.css'
+<<<<<<< HEAD
+=======
+
+
+  
+
+
+>>>>>>> master
 /* 
  * Simple editor component that takes placeholder text as a prop 
  */
@@ -14,7 +22,10 @@ export default class Editor extends React.Component {
   }
   
   handleChange (html) {
+<<<<<<< HEAD
     console.log(this.state);
+=======
+>>>>>>> master
   	this.setState({ editorHtml: html });
   }
   

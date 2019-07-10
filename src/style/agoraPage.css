@@ -1,4 +1,15 @@
+<<<<<<< HEAD
 
+=======
+.agoraPage{
+    display: flex;
+    background-color: white;
+    width: 80%;
+    height: 100%;
+    margin-left: 50px;
+    /* max-width: 1450px; */
+}
+>>>>>>> master
 .sideMenu{
     flex-basis: 100px;
     border: 1px solid gray ;
@@ -14,6 +25,12 @@
     flex-grow: 1;
 }
 
+<<<<<<< HEAD
+=======
+.notice{
+    height: 134px;
+}
+>>>>>>> master
 
 #articleListHeader{
     position: relative;

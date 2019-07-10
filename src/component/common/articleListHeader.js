@@ -9,7 +9,11 @@ import { connect } from 'react-redux'
   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 
   goToWriteArticle =()=>{
+<<<<<<< HEAD
     this.props.history.push('/addArticle')
+=======
+    this.props.history.push('/agora/addArticle')
+>>>>>>> master
   }
 
   render() {

@@ -5,6 +5,8 @@ import Coummnity from './agora/communityPage'
 import AddArticlePage from './addArticlePage/addArticlePage'
 
 import '../style/mainpage.css'
+import AgoraPage from './agora/agoraPage'
+import {Switch , Route } from 'react-router-dom' 
 
 
 export default class Mainpage extends Component {
@@ -12,6 +14,7 @@ export default class Mainpage extends Component {
         return (
             <div className="mainpage">
                 <Switch>
+<<<<<<< HEAD
                     <Route path="/community/agora" component={Coummnity} />
                     <Route path="/community/window" component={Coummnity} />
                     <Route path="/community/apple" component={Coummnity} />
@@ -19,6 +22,9 @@ export default class Mainpage extends Component {
                     <Route path="/community/android" component={Coummnity} />
                     <Route path="/community/ios" component={Coummnity} />
                     <Route path="/addArticle" component={AddArticlePage}/>
+=======
+                <Route path="/agora" exact component={AgoraPage} />
+>>>>>>> master
                 </Switch>
             </div>
         )
