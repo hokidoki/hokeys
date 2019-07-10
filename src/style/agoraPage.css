@@ -12,8 +12,8 @@
 >>>>>>> master
 .sideMenu{
     flex-basis: 100px;
+    position: relative;
     border: 1px solid gray ;
-    position: fixed;
     top: 134px;
     border: none
 }

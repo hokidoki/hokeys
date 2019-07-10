@@ -10,11 +10,16 @@ body {
 .app .ql-container {
   border-bottom-left-radius: 0.5em;
   border-bottom-right-radius: 0.5em;
+<<<<<<< Updated upstream
   background: #fefcfc;
 <<<<<<< HEAD
   min-height: 100%;
 =======
 >>>>>>> master
+=======
+  background: gray;
+  height: 100%;
+>>>>>>> Stashed changes
 }
 
 /* Snow Theme */

@@ -7,8 +7,12 @@ import ArticleListHeader from '../../component/common/articleListHeader'
 import Notice from '../../component/common/header'
 import ArticleListHeader from '../../component/common/articleListHeader'
 import {Switch , Route } from 'react-router-dom'
+<<<<<<< Updated upstream
 import Editor from '../../component/common/textEditor'
 >>>>>>> master
+=======
+// import Editor from '../../component/common/textEditor'
+>>>>>>> Stashed changes
 
 export default class ArticleListPage extends Component {
     render() {
@@ -20,8 +24,8 @@ export default class ArticleListPage extends Component {
 =======
                 <Notice></Notice>
                 <Switch>
-                     <Route path="/agora" exact component={ArticleListHeader} />
-                     <Route path="/agora/addArticle" component={Editor}/>
+                     <Route path="/agora"  component={ArticleListHeader} />
+                     {/* <Route path="/agora" exact component={Editor}/> */}
                 </Switch>
 >>>>>>> master
             </div>

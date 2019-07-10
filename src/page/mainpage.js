@@ -6,7 +6,8 @@ import AddArticlePage from './addArticlePage/addArticlePage'
 
 import '../style/mainpage.css'
 import AgoraPage from './agora/agoraPage'
-import {Switch , Route } from 'react-router-dom' 
+import { Switch, Route } from 'react-router-dom'
+import AddArticle from './addArticle/addArticle' 
 
 
 export default class Mainpage extends Component {
@@ -14,6 +15,7 @@ export default class Mainpage extends Component {
         return (
             <div className="mainpage">
                 <Switch>
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                     <Route path="/community/agora" component={Coummnity} />
                     <Route path="/community/window" component={Coummnity} />
@@ -25,6 +27,10 @@ export default class Mainpage extends Component {
 =======
                 <Route path="/agora" exact component={AgoraPage} />
 >>>>>>> master
+=======
+                    <Route path="/agora" component={AgoraPage} />
+                    <Route path="/addArticle" component={AddArticle}/>
+>>>>>>> Stashed changes
                 </Switch>
             </div>
         )

@@ -6,11 +6,14 @@ import '../../style/editor.css'
 <<<<<<< HEAD
 =======
 
+<<<<<<< Updated upstream
 
   
 
 
 >>>>>>> master
+=======
+>>>>>>> Stashed changes
 /* 
  * Simple editor component that takes placeholder text as a prop 
  */
@@ -51,18 +54,6 @@ export default class Editor extends React.Component {
   }
 }
 
-/* 
- * Quill modules to attach to editor
- * See https://quilljs.com/docs/modules/ for complete options
- */
-
-/* 
- * Render component on page
- */
-// ReactDOM.render(
-//   <Editor placeholder={'Write something...'}/>, 
-//   document.querySelector('.app')
-// )
 
 Editor.modules = {
     toolbar: [
