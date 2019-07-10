@@ -1,11 +1,20 @@
-import {createStore, combineReducers,applyMiddleware,compose} from 'redux';
-import  loginModalReducer from './loginBoxReducer'
-import penderMiddleware, {penderReducer} from 'redux-pender'
-import authReducer from './authReducer';
+//라이브러리
+import { createStore, combineReducers,applyMiddleware,compose } from 'redux';
+import thunk from 'redux-thunk'
+import { connectRouter, routerMiddleware } from 'connected-react-router'
+//리듀서
+import loginModalReducer from './loginBoxReducer'
+import authReducer from './auth/reducer'
+import addArticleReducer from './addArticle/reducer'
 
 
-export function configureStore(){
-    const middleware = applyMiddleware(penderMiddleware());
+
+
+
+
+
+export function configureStore(history){
+    const middleware = applyMiddleware(thunk,routerMiddleware(history));
 
     const composed = window.__REDUX_DEVTOOLS_EXTENSION__?
     compose(
@@ -16,9 +25,10 @@ export function configureStore(){
     
     return createStore(
         combineReducers({
-            pender : penderReducer,
             auth : authReducer,
-            loginModal : loginModalReducer
+            loginModal : loginModalReducer,
+            addArticle : addArticleReducer,
+            router : connectRouter(history)
         }),
         composed
     )

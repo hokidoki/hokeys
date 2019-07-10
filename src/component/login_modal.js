@@ -3,20 +3,23 @@ import '../style/login_modal.css';
 import { login_modal_close } from '../reducer/loginBoxReducer'
 import { connect } from 'react-redux'
 import { Button, Icon } from 'semantic-ui-react'
-import  * as authActions from '../reducer/authReducer'
-import {bindActionCreators} from 'redux'
+import  * as authActions from '../reducer/auth/actions'
+import { bindActionCreators } from 'redux'
 
 
 class LoginModal extends Component {
     onGoogleLogin = e=>{
         console.log("googleLogin");
-        this.props.authActions.signWithGoogle();
+        this.props.authActions.signInWithGoogle();
     }
     onFacebookLogin = e=>{
         console.log("facebook login");
-        this.props.authActions.signWithFacebook();
+        this.props.authActions.signInWithFacebook();
     }
+
+    
     render() {
+        console.log(this.props.authActions);
         return (
             <div className="MyModal">
                 <div className="content">

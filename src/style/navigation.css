@@ -1,5 +1,5 @@
 .navibar {
-    display: inline-block;
+    flex-basis : 2.5rem; 
     position: fixed;
     height: 100%;
     background-color: green;
@@ -18,11 +18,23 @@
 .login_icon{
     font-size: 25px;
 }
-.left{
+#left{
     margin-right: 10px;
 }
-.right{
+#right{
     margin-left: 10px;
+    margin-right: 0;
+}
+#currentBox{
+    text-align: center;
+    font-size: 15px;
+}
+#line{
+    line-height: 10px;
+}
+.buttons{
+    font-size: 1.2rem;
+   line-height: 40px;
 }
 
 .login{

@@ -1,0 +1,28 @@
+
+.sideMenu{
+    flex-basis: 100px;
+    border: 1px solid gray ;
+    position: fixed;
+    top: 134px;
+    border: none
+}
+.sideMenuPage{
+    flex-basis: 210px;
+}
+
+.articleListPage{
+    flex-grow: 1;
+}
+
+
+#articleListHeader{
+    position: relative;
+    margin: 0 0 0 0;
+    padding-left: 10px;
+}
+
+#writeArticleButton{
+    position: absolute;
+    right: 0;
+    float: right;
+}

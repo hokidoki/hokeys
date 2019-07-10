@@ -9,3 +9,8 @@ export function signWithFacebookAPI(){
     var provider = new firebase.auth.FacebookAuthProvider();
     return firebase.auth().signInWithPopup(provider)
 }
+
+export function signOut(){
+    return firebase.auth().signOut();
+}
+

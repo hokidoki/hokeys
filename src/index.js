@@ -6,7 +6,13 @@ import { Provider } from 'react-redux'
 import { configureStore } from './reducer/index'
 import firebase from 'firebase'
 
-const store = configureStore();
+import { createBrowserHistory } from 'history'
+import { ConnectedRouter } from 'connected-react-router'
+
+import * as authActions from './reducer/auth/actions'
+
+const history = createBrowserHistory();
+const store = configureStore(history);
 
 var config ={
     apiKey: "AIzaSyBFqFWXNecwYdzVugabCOgWxMmh9uzDezs",
@@ -20,8 +26,14 @@ var config ={
 
 firebase.initializeApp(config);
 
+firebase.auth().onAuthStateChanged((user)=>{
+    store.dispatch(authActions.updateUser(user));
+})
+
 ReactDOM.render(
     <Provider store={store}>
-        <App />
+        <ConnectedRouter history={history}>
+            <App />
+        </ConnectedRouter>
     </Provider>
     , document.getElementById('root'));
