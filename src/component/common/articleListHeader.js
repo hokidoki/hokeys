@@ -9,15 +9,7 @@ import { connect } from 'react-redux'
   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 
   goToWriteArticle =()=>{
-<<<<<<< Updated upstream
-<<<<<<< HEAD
     this.props.history.push('/addArticle')
-=======
-    this.props.history.push('/agora/addArticle')
->>>>>>> master
-=======
-    this.props.history.push('/addArticle')
->>>>>>> Stashed changes
   }
 
   render() {

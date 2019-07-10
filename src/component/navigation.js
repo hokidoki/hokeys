@@ -23,57 +23,32 @@ class Navigation extends Component {
 
     goToAgora = e =>{
         this.handleItemClick("agora")
-<<<<<<< HEAD
-        this.props.history.push('/community/agora');
-=======
-        this.props.history.push('/agora');
->>>>>>> master
-        
+        this.props.history.push('/community/agora');        
     }
 
     goToWindow = e =>{
         this.handleItemClick("promotions")
-<<<<<<< HEAD
         this.props.history.push('/community/window');
-=======
-        this.props.history.push('/');
->>>>>>> master
     }
 
     goToApple = e =>{
         this.handleItemClick("apple")
-<<<<<<< HEAD
         this.props.history.push('/community/apple');
-=======
-        this.props.history.push('/');
->>>>>>> master
     }
 
     goToLinux= e =>{
         this.handleItemClick("linux")
-<<<<<<< HEAD
         this.props.history.push('/community/linux');
-=======
-        this.props.history.push('/');
->>>>>>> master
     }
 
     goToAndroid = e =>{
         this.handleItemClick("android")
-<<<<<<< HEAD
         this.props.history.push('/community/android');
-=======
-        this.props.history.push('/');
->>>>>>> master
     }
 
     goToIos = e =>{
         this.handleItemClick("ios")
-<<<<<<< HEAD
         this.props.history.push('/community/ios');
-=======
-        this.props.history.push('/');
->>>>>>> master
     }
     render() {
         const { activeItem } = this.state;

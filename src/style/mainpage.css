@@ -7,7 +7,6 @@
     background-color: gray;
 }
 
-<<<<<<< Updated upstream
 .notice{
     height: 134px;
 }
@@ -30,19 +29,36 @@
     height: 100%;
     min-height: 100vh;
     margin-left: 50px;
-    /* max-width: 1450px; */
+    max-width: 1450px;
 }
 
-.addArticleButtonDiv{
-    height : 100px;
-=======
-.board{
-        background-color: white;
-        width: 80%;
-        min-height: 100vh;
-        height: 100%;
-        margin-left: 50px;
-        /* max-width: 1450px; */
-    
->>>>>>> Stashed changes
+.sideMenu{
+    flex-basis: 100px;
+    position: relative;
+    border: 1px solid gray ;
+    top: 134px;
+    border: none
+}
+.sideMenuPage{
+    flex-basis: 210px;
+}
+
+.articleListPage{
+    flex-grow: 1;
+}
+
+.notice{
+    height: 134px;
+}
+
+#articleListHeader{
+    position: relative;
+    margin: 0 0 0 0;
+    padding-left: 10px;
+}
+
+#writeArticleButton{
+    position: absolute;
+    right: 0;
+    float: right;
 }

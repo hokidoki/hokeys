@@ -3,21 +3,13 @@ import React from 'react'
 import PropTypes from 'prop-types'
 // import ReactDOM from 'react-dom';
 import '../../style/editor.css'
-<<<<<<< HEAD
-=======
+import { Button } from 'semantic-ui-react';
+import { bindActionCreators } from 'redux'; 
+import { connect } from 'react-redux';
 
-<<<<<<< Updated upstream
+import * as articleActions from '../../reducer/Article/actions';
 
-  
-
-
->>>>>>> master
-=======
->>>>>>> Stashed changes
-/* 
- * Simple editor component that takes placeholder text as a prop 
- */
-export default class Editor extends React.Component {
+class Editor extends React.Component {
   constructor (props) {
     super(props)
     this.state = { editorHtml: '', theme: 'snow' }
@@ -25,10 +17,6 @@ export default class Editor extends React.Component {
   }
   
   handleChange (html) {
-<<<<<<< HEAD
-    console.log(this.state);
-=======
->>>>>>> master
   	this.setState({ editorHtml: html });
   }
   
@@ -36,7 +24,14 @@ export default class Editor extends React.Component {
     if (newTheme === "core") newTheme = null;
     this.setState({ theme: newTheme })
   }
-  
+
+  onAddArticle = e => {
+
+    const contents = this.state.editorHtml;
+
+    this.props.articleActions.addArticle({ contents,file : null });
+  }
+
   render () {
     return (
       <div>
@@ -49,6 +44,7 @@ export default class Editor extends React.Component {
           bounds={'.app'}
           placeholder={this.props.placeholder}
          />
+         <Button onClick={this.onAddArticle}>글쓰기</Button>
        </div>
      )
   }
@@ -87,3 +83,10 @@ Editor.modules = {
   Editor.propTypes = {
     placeholder: PropTypes.string,
   }
+
+  const mapDispatchToProps = (dispatch) => {
+    return {
+      articleActions : bindActionCreators(articleActions,dispatch),
+    }
+  }
+  export default connect(null,mapDispatchToProps)(Editor);

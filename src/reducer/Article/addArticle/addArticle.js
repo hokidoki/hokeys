@@ -1,5 +1,5 @@
 import  { handleActions } from 'redux-actions';
-import * as type from '../actionTypes'
+import * as type from '../../actionTypes'
 const initialState = {
     isLoading : false,
     error : null

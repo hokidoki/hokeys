@@ -1,4 +1,4 @@
-
+// 로그인 액션
 export const UPDATE_USER = "UPDATE_USER"
 
 export const SIGN_IN_WITH_GOOGLE_REQUEST = "SIGN_IN_WITH_GOOGLE_REQUEST";
@@ -12,12 +12,9 @@ export const SIGN_IN_WITH_FACEBOOK_FAILED = "SIGN_IN_WITH_FACEBOOK_FAILED";
 export const SIGN_OUT_REQUEST = "SIGN_OUT_REQUEST";
 export const SIGN_OUT_SUCCESS = "SIGN_OUT_SUCCESS";
 export const SIGN_OUT_FAILED = "SIGN_OUT_FAILED";
-<<<<<<< HEAD
 
-//게시글 추가 
+//게시글 액션
 
 export const ADD_ARTICLE_REQUEST = "ADD_ARTICLE_REQUSET";
 export const ADD_ARTICLE_SUCCESS = "ADD_ARTICLE_SUCCESS";
 export const ADD_ARTICLE_FAILED = "ADD_ARTICLE_FAILED";
-=======
->>>>>>> master

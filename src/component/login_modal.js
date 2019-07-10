@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import '../style/login_modal.css';
+import '../style/loginModal.css';
 import { login_modal_close } from '../reducer/loginBoxReducer'
 import { connect } from 'react-redux'
 import { Button, Icon } from 'semantic-ui-react'
@@ -27,11 +27,9 @@ class LoginModal extends Component {
                     <Button color='google plus' onClick={this.onGoogleLogin}>
                         <Icon name='google plus' /> Google Login
                      </Button>
-                     <br/>
                     <Button color='facebook' onClick={this.onFacebookLogin}>
                         <Icon name='facebook' /> Facebook Login
                     </Button>
-                    <br/>
                     <Button onClick={this.props.close_modal}>
                          닫기
                     </Button>

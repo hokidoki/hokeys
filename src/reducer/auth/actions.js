@@ -14,7 +14,7 @@ const signInWithFacebookFailed = createAction(types.SIGN_IN_WITH_FACEBOOK_FAILED
 
 export const signInWithFacebook = ()=>{
     return (dispatch) =>{
-        dispatch(signInWithFacebookRequest);
+        dispatch(signInWithFacebookRequest());
         authAPI.signWithFacebookAPI()
             .then(()=>{
                 dispatch(signInWithFacebookSuccess())
