@@ -1,23 +1,48 @@
 import ReactQuill from 'react-quill';
 import React from 'react'
 import PropTypes from 'prop-types'
-// import ReactDOM from 'react-dom';
-import '../../style/editor.css'
-import { Button } from 'semantic-ui-react';
+
 import { bindActionCreators } from 'redux'; 
 import { connect } from 'react-redux';
-
 import * as articleActions from '../../reducer/Article/actions';
 
+import styeld from 'styled-components';
+import { Button } from 'semantic-ui-react';
+import '../../style/editor.css'
+
+
+const TitleDiv = styeld.div`
+  width : 100%;
+  height : 3rem;
+  font-size : 1.5 rem;
+  border-bottom : 2px solid gray;
+  margin-bottom : 5px; 
+`
+
+const Title = styeld.input`
+  background-color : none;
+  border : none;
+  margin-left : 10px;
+  width : 80%;
+  outline : none;
+  font-size : 1.5rem;
+`
+
 class Editor extends React.Component {
-  constructor (props) {
-    super(props)
-    this.state = { editorHtml: '', theme: 'snow' }
-    this.handleChange = this.handleChange.bind(this)
+ 
+  state = { 
+    title : '',
+    editorHtml: '', 
+    theme: 'snow' 
   }
-  
-  handleChange (html) {
+
+  handleChange = html => {
   	this.setState({ editorHtml: html });
+  }
+
+  titleHandleChange = e => {
+    const title = e.target.value;
+    this.setState({ title : title })
   }
   
   handleThemeChange (newTheme) {
@@ -26,15 +51,19 @@ class Editor extends React.Component {
   }
 
   onAddArticle = e => {
+    const { title,editorHtml } = this.state;
 
-    const contents = this.state.editorHtml;
+    console.log(editorHtml);
 
-    this.props.articleActions.addArticle({ contents,file : null });
+    this.props.articleActions.addArticle(title,editorHtml,null );
   }
 
   render () {
     return (
       <div>
+        <TitleDiv>
+          <Title placeholder="제목을 입력하세요" maxLength="40" value={this.state.title} onChange={this.titleHandleChange}/>
+        </TitleDiv>
         <ReactQuill 
           theme={this.state.theme}
           onChange={this.handleChange}

@@ -2,11 +2,12 @@ import firebase from 'firebase';
 import uuid from 'uuid';
 
 
-export function addArticle({ userId,content,file, userDisplayName, userProfileUrl }) {
+export function addArticle({ title,userId,content,file, userDisplayName, userProfileUrl }) {
     if(file == null){
         const articleId = uuid.v1();
         return firebase.firestore().collection('articles').doc(articleId).set({
             id: articleId,
+            title : title,
             content,
             userId,
             userDisplayName,
@@ -33,6 +34,7 @@ export function addArticle({ userId,content,file, userDisplayName, userProfileUr
                 const articleId = uuid.v1();
                 return firebase.firestore().collection('articles').doc(articleId).set({
                     id: articleId,
+                    title : title,
                     downloadUrl,
                     content,
                     userId,
