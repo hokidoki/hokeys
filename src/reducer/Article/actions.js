@@ -1,4 +1,4 @@
-import * as addArticleAPI  from '../../infra/addArticle/api';
+import * as ArticleAPI  from '../../infra/Article/api';
 import { createAction } from 'redux-actions';
 import * as types from '../actionTypes';
 
@@ -15,11 +15,31 @@ export const addArticle = (title,content,file) =>{
         const userDisplayName = state.auth.user.displayName;
         const userProfileUrl = state.auth.user.photoURL;
         //getState를 쓰면 현재 스토어의 스테이트를 알 수 있다. 
-        addArticleAPI.addArticle({title,userId,content,file,userDisplayName,userProfileUrl})
+        ArticleAPI.addArticle({title,userId,content,file,userDisplayName,userProfileUrl})
         .then(()=>{
             dispatch(addArticleSuccess());
         }).catch((error)=>{
             dispatch(addArticleFailed(error));
+        })
+    }
+}
+
+const getArticleListRequest = createAction(types.GET_ARTICLE_LIST_REQUSET);
+const getArticleListSuccess = createAction(types.GET_ARTICLE_LIST_SUCCESS);
+const getArticleListFailed = createAction(types.GET_ARTICLE_LIST_FAILED);
+
+export const getArticleList = (lastItem,count) =>{ return (dispatch, getState) => {
+    dispatch(getArticleListRequest())
+    ArticleAPI.getArticleList(lastItem,count)
+    .then((snapShot) => {
+        console.log(snapShot.docs);
+        dispatch(getArticleListSuccess({
+            list : snapShot.docs,
+            isConcat : lastItem ? true : false
+        }))
+    }).catch((error) => {
+        console.log(error);
+        dispatch(getArticleListFailed(error))
         })
     }
 }

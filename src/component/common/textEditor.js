@@ -53,7 +53,14 @@ class Editor extends React.Component {
   onAddArticle = e => {
     const { title,editorHtml } = this.state;
 
-    console.log(editorHtml);
+    if(title.length < 3){
+      alert("제목은 3자 이상 작성해야합니다.");
+      return;
+    }
+    if(editorHtml.length < 10){
+      alert("본문은 10자 이상 작성해야합니다.");
+      return;
+    }
 
     this.props.articleActions.addArticle(title,editorHtml,null );
   }
