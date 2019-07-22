@@ -49,3 +49,13 @@ export function addArticle({ title,userId,content,file, userDisplayName, userPro
         )
     }
 }
+
+export function getArticleList(lastItem,count){
+    const limitCount = count || 10;
+
+    if(lastItem){
+        return firebase.firestore().collection("articles").orderBy("createdAt","desc").startAfter(lastItem).limit(limitCount).get();
+    }else{
+        return firebase.firestore().collection("articles").orderBy("createdAt","desc").limit(limitCount).get()
+    }
+}
