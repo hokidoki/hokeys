@@ -2,10 +2,10 @@ import firebase from 'firebase';
 import uuid from 'uuid';
 
 
-export function addArticle({ title,userId,content,file, userDisplayName, userProfileUrl }) {
+export function addArticle({whereCollection,title,userId,content,file, userDisplayName, userProfileUrl }) {
     if(file == null){
         const articleId = uuid.v1();
-        return firebase.firestore().collection('articles').doc(articleId).set({
+        return firebase.firestore().collection(`${whereCollection}`).doc(articleId).set({
             id: articleId,
             title : title,
             content,
@@ -32,7 +32,7 @@ export function addArticle({ title,userId,content,file, userDisplayName, userPro
             })
             .then((downloadUrl) => {
                 const articleId = uuid.v1();
-                return firebase.firestore().collection('articles').doc(articleId).set({
+                return firebase.firestore().collection(`${whereCollection}`).doc(articleId).set({
                     id: articleId,
                     title : title,
                     downloadUrl,
@@ -50,12 +50,12 @@ export function addArticle({ title,userId,content,file, userDisplayName, userPro
     }
 }
 
-export function getArticleList(lastItem,count){
+export function getArticleList(whereCollection,lastItem,count){
     const limitCount = count || 10;
 
     if(lastItem){
-        return firebase.firestore().collection("articles").orderBy("createdAt","desc").startAfter(lastItem).limit(limitCount).get();
+        return firebase.firestore().collection(whereCollection).orderBy("createdAt","desc").startAfter(lastItem).limit(limitCount).get();
     }else{
-        return firebase.firestore().collection("articles").orderBy("createdAt","desc").limit(limitCount).get()
+        return firebase.firestore().collection(whereCollection).orderBy("createdAt","desc").limit(limitCount).get()
     }
 }

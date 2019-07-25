@@ -42,7 +42,7 @@ class Editor extends React.Component {
 
   titleHandleChange = e => {
     const title = e.target.value;
-    this.setState({ title : title })
+    this.setState({ title : title  })
   }
   
   handleThemeChange (newTheme) {
@@ -51,8 +51,10 @@ class Editor extends React.Component {
   }
 
   onAddArticle = e => {
+    const { params } = this.props;
     const { title,editorHtml } = this.state;
-
+    const whereCollection = params.name.replace(":" , "");
+    
     if(title.length < 3){
       alert("제목은 3자 이상 작성해야합니다.");
       return;
@@ -62,7 +64,7 @@ class Editor extends React.Component {
       return;
     }
 
-    this.props.articleActions.addArticle(title,editorHtml,null );
+    this.props.articleActions.addArticle(whereCollection, title, editorHtml, null );
   }
 
   render () {

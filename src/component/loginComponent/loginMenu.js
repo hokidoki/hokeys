@@ -14,11 +14,6 @@ class LoginMenu extends Component {
                      "signup" className="login_icon right"/>
                 </Form.Input>
             </Menu.Item>
-                // 
-                //     <Form.Input>
-                //           <Icon  link onClick={this.props.openModal}/
-                //     </Form.Input>
-                // 
         )
     }
 }

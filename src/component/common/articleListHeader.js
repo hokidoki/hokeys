@@ -9,7 +9,8 @@ import { connect } from 'react-redux'
   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 
   goToWriteArticle =()=>{
-    this.props.history.push('/addArticle')
+    const { params } = this.props;
+    this.props.history.push(`/addArticle/:${params.name}`);
   }
 
   render() {

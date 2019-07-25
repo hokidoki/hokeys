@@ -12,8 +12,8 @@ export default class Mainpage extends Component {
         return (
             <div className="mainpage">
                 <Switch>
-                    <Route path="/community"  component={Coummnity} />
-                    <Route path="/addArticle" component={AddArticlePage}/>
+                    <Route path="/community/:name"  component={Coummnity} />
+                    <Route path="/addArticle/:name" component={AddArticlePage}/>
                 </Switch>
             </div>
         )
