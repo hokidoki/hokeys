@@ -44,6 +44,7 @@
 }
 
 .articleListPage{
+    padding-left: 10px;
     flex-grow: 1;
 }
 
@@ -54,7 +55,6 @@
 #articleListHeader{
     position: relative;
     margin: 0 0 0 0;
-    padding-left: 10px;
 }
 
 #writeArticleButton{

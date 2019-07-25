@@ -32,7 +32,6 @@ export const getArticleList = (lastItem,count) =>{ return (dispatch, getState) =
     dispatch(getArticleListRequest())
     ArticleAPI.getArticleList(lastItem,count)
     .then((snapShot) => {
-        console.log(snapShot.docs);
         dispatch(getArticleListSuccess({
             list : snapShot.docs,
             isConcat : lastItem ? true : false
@@ -43,3 +42,4 @@ export const getArticleList = (lastItem,count) =>{ return (dispatch, getState) =
         })
     }
 }
+

@@ -1,0 +1,48 @@
+.IB{
+  display: inline-block;
+}
+.articleListItemContainner{
+  border :  1px solid black;
+  display: flex;
+  margin-top: 15px;
+}
+.titleCreatedAtContainner{
+  flex-grow: 9;
+  flex-direction: column;
+}
+.adtional{
+  flex-grow: 1;
+  height: 4rem;
+  display: flex;
+}
+.likeCount{
+  flex-basis: 50px;
+}
+.commentCount{
+  flex-basis: 50px;
+}
+.clicked{
+  flex-basis: 50px;
+
+}
+.articleTitle{
+  box-sizing: border-box;
+  line-height: 2em;
+  padding-left : 5px; 
+}
+.createdAt{      
+  padding-left : 5px; 
+  height: 2em;
+  box-sizing: border-box;
+  line-height: 2em;
+  }
+.center{
+  text-align: center;
+  line-height: 4rem;
+}    
+.file{
+  flex-grow: 1;
+}
+.picture{
+  flex-grow: 1;
+}
