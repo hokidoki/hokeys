@@ -46,3 +46,19 @@
 .picture{
   flex-grow: 1;
 }
+
+.listIndex{
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  color: white;
+  background-color: black;
+  margin-right: 5px;
+  line-height: 15px;
+  text-align: center;
+  cursor: pointer;  
+}
+
+.listIndex:hover{
+  background-color: gray;
+}
