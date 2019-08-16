@@ -59,3 +59,7 @@ export function getArticleList(whereCollection,lastItem,count){
         return firebase.firestore().collection(whereCollection).orderBy("createdAt","desc").limit(limitCount).get()
     }
 }
+
+export function getArticle(where,articleId){
+    return firebase.firestore().collection(where).doc(articleId).get();
+}

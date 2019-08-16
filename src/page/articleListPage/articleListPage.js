@@ -21,7 +21,7 @@ import '../../style/articleListItem.css'
 
     componentDidMount(){
         const { params } = this.props;
-        this.props.articleActions(params.name,null,5);
+        this.props.articleActions(params.name,null,100);
     }
     componentDidUpdate(oldProps) {
         const newProps = this.props;
@@ -38,15 +38,14 @@ import '../../style/articleListItem.css'
             const item = doc.data();
             const start = (pageNumb - 1) * showArticle;
             const end = pageNumb * showArticle;
-
             if(index >= start && index < end){
+                console.log(item);
                 return <ArticleItem
                 key = {item.id}
                 articleTitle = {item.title}
                 createdAt = {item.createdAt}
             />
             }else{
-                console.log(index)
                 return null;
             }
         });
@@ -57,15 +56,12 @@ import '../../style/articleListItem.css'
                 pageNumb : pageNumb,
                 showArticle : 3,
             })
-            console.log(this.state)
         }
 
         const listIndex = ()=>{
             let length;
             let listIndex = [];            
             length = Math.ceil(list.length / this.state.showArticle);
-            console.log(length);
-            console.log(list.length % this.state.showArticle)
             for(let i = 1; i <= length; i++){
                 listIndex.push(i);
             }
