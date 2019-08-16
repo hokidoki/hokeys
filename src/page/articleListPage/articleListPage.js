@@ -2,11 +2,13 @@ import React, { Component,Fragment } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import querystring from 'query-string';
 import * as articleActions from '../../reducer/Article/actions';
 import Notice from '../../component/common/Notice'
 import ArticleListHeader from '../../component/common/articleListHeader';
 import ArticleItem from '../../component/article/ArticleItem';
 import '../../style/articleListItem.css'
+
 
  class ArticleListPage extends Component {
 
@@ -21,18 +23,20 @@ import '../../style/articleListItem.css'
 
     componentDidMount(){
         const { params } = this.props;
-        this.props.articleActions(params.name,null,100);
+        this.props.getArticleList(params.name,null,100);
     }
     componentDidUpdate(oldProps) {
         const newProps = this.props;
         if(oldProps.params !== newProps.params) {
             const { params } = newProps;
-            this.props.articleActions(params.name,null,100);
+            this.props.getArticleList(params.name,null,100);
         }
     }
 
+
     render() {
-        const { list,params,history } = this.props;
+        const { list,params,history,getArticle,location } = this.props;
+        console.log(querystring.parse(location.search))
         const { pageNumb, showArticle} = this.state;
         const listView = list.map((doc, index) => {
             const item = doc.data();
@@ -41,9 +45,12 @@ import '../../style/articleListItem.css'
             if(index >= start && index < end){
                 console.log(item);
                 return <ArticleItem
+                id = {item.id}
                 key = {item.id}
                 articleTitle = {item.title}
                 createdAt = {item.createdAt}
+                getArticle = {getArticle}
+                collection = {params.name}
             />
             }else{
                 return null;
@@ -101,12 +108,14 @@ const mapStateToProps = (state) => {
     return {
         list: state.article.articleList.list,
         isLoading: state.article.articleList.isLoading,
+        Article : state.article.getArticle.doc
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        articleActions: bindActionCreators(articleActions.getArticleList, dispatch),
+        getArticleList: bindActionCreators(articleActions.getArticleList, dispatch),
+        getArticle : bindActionCreators(articleActions.getArticle,dispatch)
     }
 }
 

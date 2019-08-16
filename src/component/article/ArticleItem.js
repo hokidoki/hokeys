@@ -12,6 +12,13 @@ export default class ArticleItem extends Component {
         clicked : 0
     }
 
+    getArticle = ()=>{
+        const {id,collection} = this.props;
+        this.props.getArticle(collection,id);
+    }
+
+    
+
     render() {
         const { createdAt } = this.props;
         let datetime = "";
@@ -19,7 +26,7 @@ export default class ArticleItem extends Component {
             datetime = new Date(createdAt.seconds*1000).toISOString().substring(0,10);
         }
         return (
-            <div className="articleListItemContainner">
+            <div className="articleListItemContainner" onClick={this.getArticle}>
                 <div className="titleCreatedAtContainner IB">
                     <div className="articleTitle">
                         {this.props.articleTitle}

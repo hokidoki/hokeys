@@ -30,9 +30,9 @@ const getArticleListRequest = createAction(types.GET_ARTICLE_LIST_REQUSET);
 const getArticleListSuccess = createAction(types.GET_ARTICLE_LIST_SUCCESS);
 const getArticleListFailed = createAction(types.GET_ARTICLE_LIST_FAILED);
 
-export const getArticleList = (whereCollection,lastItem,count) =>{ return (dispatch, getState) => {
+export const getArticleList = (collection,lastItem,count) =>{ return (dispatch, getState) => {
     dispatch(getArticleListRequest())
-    ArticleAPI.getArticleList(whereCollection,lastItem,count)
+    ArticleAPI.getArticleList(collection,lastItem,count)
     .then((snapShot) => {
         dispatch(getArticleListSuccess({
             list : snapShot.docs,
@@ -45,3 +45,22 @@ export const getArticleList = (whereCollection,lastItem,count) =>{ return (dispa
     }
 }
 
+const getArticleRequest = createAction(types.GET_ARTICLE_REQUEST);
+const getArticleSuccess = createAction(types.GET_ARTICLE_SUCCESS);
+const getArticleFailed = createAction(types.GET_ARTICLE_FAILED);
+
+export const getArticle = (collection,articleId) =>{
+    return (dispatch,getState)=>{
+        dispatch(getArticleRequest);
+        dispatch(push(`/community/${collection}/?id=${articleId}`))
+        ArticleAPI.getArticle(collection,articleId)
+        .then((snapShot)=>{
+            dispatch(getArticleSuccess({
+                doc : snapShot
+            }))
+        }).catch((error)=>{
+            console.log(error)
+            dispatch(getArticleFailed(error))
+        })
+    }
+}
