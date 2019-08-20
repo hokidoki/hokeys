@@ -13,8 +13,9 @@ export default class ArticleItem extends Component {
     }
 
     getArticle = ()=>{
-        const {id,collection} = this.props;
-        this.props.getArticle(collection,id);
+        const {id,collection,page} = this.props;
+        console.log(page);
+        this.props.history.push(`/community/${collection}/?page=${page}&id=${id}`);
     }
 
     

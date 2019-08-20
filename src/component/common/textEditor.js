@@ -66,7 +66,9 @@ class Editor extends React.Component {
 
     this.props.articleActions.addArticle(whereCollection, title, editorHtml, null );
   }
-
+  imageChange = ()=>{
+    console.log("image")
+  }
   render () {
     return (
       <div>
@@ -102,7 +104,7 @@ Editor.modules = {
     clipboard: {
       // toggle to add extra line breaks when pasting HTML:
       matchVisual: false,
-    }
+    },
   }
   /* 
    * Quill editor formats
@@ -121,6 +123,8 @@ Editor.modules = {
   Editor.propTypes = {
     placeholder: PropTypes.string,
   }
+
+
 
   const mapDispatchToProps = (dispatch) => {
     return {

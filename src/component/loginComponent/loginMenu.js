@@ -6,7 +6,6 @@ import {login_modal_open} from '../../reducer/loginBoxReducer'
 
 class LoginMenu extends Component {
     render() {
-        console.log(this.props)
         return (
             <Menu.Item className="loginbox">
                 <Form.Input>

@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom'
 import { Header, Menu } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { login_modal_open } from '../reducer/loginBoxReducer'
+import * as actions from '../reducer/Article/actions'
 import '../style/navigation.css'
 import LoginMenu from './loginComponent/loginMenu';
 import CurrentMenu from './loginComponent/currentMenu'
@@ -23,32 +24,34 @@ class Navigation extends Component {
 
     goToAgora = e =>{
         this.handleItemClick("agora")
-        this.props.history.push('/community/agora');        
+        this.props.goToCommunity("agora",null,100);
+        // this.props.history.push('/community/agora');        
     }
 
     goToWindow = e =>{
-        this.handleItemClick("promotions")
-        this.props.history.push('/community/window');
+        this.handleItemClick("window")
+        this.props.goToCommunity("window",null,100);
+        // this.props.history.push('/community/window');
     }
 
     goToApple = e =>{
         this.handleItemClick("apple")
-        this.props.history.push('/community/apple');
+        this.props.goToCommunity("apple",null,100);
     }
 
     goToLinux= e =>{
         this.handleItemClick("linux")
-        this.props.history.push('/community/linux');
+        this.props.goToCommunity("linux",null,100);
     }
 
     goToAndroid = e =>{
         this.handleItemClick("android")
-        this.props.history.push('/community/android');
+        this.props.goToCommunity("andriod",null,100);
     }
 
     goToIos = e =>{
         this.handleItemClick("ios")
-        this.props.history.push('/community/ios');
+        this.props.goToCommunity("ios",null,100);
     }
     render() {
         const { activeItem } = this.state;
@@ -93,7 +96,8 @@ class Navigation extends Component {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        openModal: () => dispatch(login_modal_open())
+        openModal: () => dispatch(login_modal_open()),
+        goToCommunity : (collection,lastItem,count)=> dispatch(actions.goToCommunity(collection,lastItem,count))
     }
 }
 

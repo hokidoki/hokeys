@@ -36,7 +36,7 @@ export const getArticleList = (collection,lastItem,count) =>{ return (dispatch, 
     .then((snapShot) => {
         dispatch(getArticleListSuccess({
             list : snapShot.docs,
-            isConcat : lastItem ? true : false
+            isConcat : lastItem ? true : false,
         }))
     }).catch((error) => {
         console.log(error);
@@ -45,14 +45,33 @@ export const getArticleList = (collection,lastItem,count) =>{ return (dispatch, 
     }
 }
 
+export const goToCommunity = (collection,lastItem,count) =>{
+    return (dispatch, getState) => {
+        dispatch(getArticleListRequest())
+        ArticleAPI.getArticleList(collection,lastItem,count)
+        .then((snapShot) => {
+            dispatch(getArticleListSuccess({
+                list : snapShot.docs,
+                isConcat : lastItem ? true : false,
+            }))
+        }).then(()=>{
+            dispatch((push(`/community/${collection}`)))
+        }).catch((error) => {
+            console.log(error);
+            dispatch(getArticleListFailed(error))
+        })
+    }
+}
+
 const getArticleRequest = createAction(types.GET_ARTICLE_REQUEST);
 const getArticleSuccess = createAction(types.GET_ARTICLE_SUCCESS);
 const getArticleFailed = createAction(types.GET_ARTICLE_FAILED);
 
+export const getArticleReset = createAction(types.GET_ARTICLE_RESET);
+
 export const getArticle = (collection,articleId) =>{
     return (dispatch,getState)=>{
         dispatch(getArticleRequest);
-        dispatch(push(`/community/${collection}/?id=${articleId}`))
         ArticleAPI.getArticle(collection,articleId)
         .then((snapShot)=>{
             dispatch(getArticleSuccess({
@@ -64,3 +83,4 @@ export const getArticle = (collection,articleId) =>{
         })
     }
 }
+

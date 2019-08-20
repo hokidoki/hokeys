@@ -7,15 +7,12 @@ import * as articleActions from '../../reducer/Article/actions';
 import Notice from '../../component/common/Notice'
 import ArticleListHeader from '../../component/common/articleListHeader';
 import ArticleItem from '../../component/article/ArticleItem';
+import ArticlePage from '../agora/articlePage.js'
 import '../../style/articleListItem.css'
 
 
  class ArticleListPage extends Component {
 
-    state = {
-        pageNumb : 1,
-        showArticle : 3,
-    }
 
     static defaultProps = {
         list : []
@@ -23,34 +20,38 @@ import '../../style/articleListItem.css'
 
     componentDidMount(){
         const { params } = this.props;
-        this.props.getArticleList(params.name,null,100);
-    }
-    componentDidUpdate(oldProps) {
-        const newProps = this.props;
-        if(oldProps.params !== newProps.params) {
-            const { params } = newProps;
+        if(this.props.list.length === 0){
             this.props.getArticleList(params.name,null,100);
         }
     }
 
+    // componentDidUpdate(oldProps) {
+    //     const newProps = this.props;
+    //     console.log(190)
+    //     if(oldProps.params.name !== newProps.params.name) {
+    //         const { params } = newProps;
+    //         this.props.getArticleList(params.name,null,100);
+    //     }
+    // }
 
+  
     render() {
-        const { list,params,history,getArticle,location } = this.props;
-        console.log(querystring.parse(location.search))
-        const { pageNumb, showArticle} = this.state;
+        const { list,params,history,location,showArticle } = this.props;
+        const query = querystring.parse(location.search);
         const listView = list.map((doc, index) => {
             const item = doc.data();
+            const pageNumb = query.page ? query.page : 1;
             const start = (pageNumb - 1) * showArticle;
             const end = pageNumb * showArticle;
             if(index >= start && index < end){
-                console.log(item);
                 return <ArticleItem
                 id = {item.id}
                 key = {item.id}
                 articleTitle = {item.title}
                 createdAt = {item.createdAt}
-                getArticle = {getArticle}
                 collection = {params.name}
+                page = {pageNumb}
+                history ={history}
             />
             }else{
                 return null;
@@ -59,16 +60,12 @@ import '../../style/articleListItem.css'
 
         const movePageNumb = (pageNumb) =>{
             history.push(`/community/${params.name}?page=${pageNumb}`);
-            this.setState({
-                pageNumb : pageNumb,
-                showArticle : 3,
-            })
         }
 
         const listIndex = ()=>{
             let length;
             let listIndex = [];            
-            length = Math.ceil(list.length / this.state.showArticle);
+            length = Math.ceil(list.length / showArticle);
             for(let i = 1; i <= length; i++){
                 listIndex.push(i);
             }
@@ -81,6 +78,7 @@ import '../../style/articleListItem.css'
             <div className="articleListPage">
                 <Notice/>
                 <ArticleListHeader params={params}/>
+                {query.id != null ? <ArticlePage collection={params.name} id={query.id}/> : null }
                 { list ? listView : null}
                 { list ? listIndex(): null}
             </div>
@@ -108,14 +106,13 @@ const mapStateToProps = (state) => {
     return {
         list: state.article.articleList.list,
         isLoading: state.article.articleList.isLoading,
-        Article : state.article.getArticle.doc
+        showArticle : state.article.showArticle.showArticle
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
         getArticleList: bindActionCreators(articleActions.getArticleList, dispatch),
-        getArticle : bindActionCreators(articleActions.getArticle,dispatch)
     }
 }
 
