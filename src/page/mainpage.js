@@ -1,21 +1,33 @@
 import React, { Component } from 'react'
-import { Switch, Route } from 'react-router-dom'
+import { Redirect ,Switch, Route } from 'react-router-dom'
 
 import Coummnity from './agora/communityPage'
 import AddArticlePage from './addArticlePage/addArticlePage'
 
 import '../style/mainpage.css'
+import { connect } from 'react-redux';
 
 
-export default class Mainpage extends Component {
+ class Mainpage extends Component {
     render() {
+        const { account } = this.props;
         return (
             <div className="mainpage">
                 <Switch>
                     <Route path="/community/:name"  component={Coummnity} />
-                    <Route path="/addArticle/:name" component={AddArticlePage}/>
+                    {
+                        account ? <Route path="/addArticle/:name" component={AddArticlePage}/> : <Redirect to="/"/>
+                    }
                 </Switch>
             </div>
         )
     }
 }
+
+const mapStateToProps = (state)=>{
+    return {
+        account : state.auth.user
+    }
+}
+
+export default connect(mapStateToProps,null)(Mainpage)

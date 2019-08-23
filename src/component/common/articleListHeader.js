@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { Menu,Button,Icon } from 'semantic-ui-react'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
+import {login_modal_open} from '../../reducer/loginBoxReducer'
+
 
  class ArticleListHeader extends Component {
   state = { activeItem: 'closest' }
@@ -9,8 +11,12 @@ import { connect } from 'react-redux'
   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 
   goToWriteArticle =()=>{
-    const { params } = this.props;
-    this.props.history.push(`/addArticle/:${params.name}`);
+    const { params,account,openModal } = this.props;
+    if(account){
+      this.props.history.push(`/addArticle/:${params.name}`);
+    }else{
+      openModal();
+    }
   }
 
   render() {
@@ -40,4 +46,16 @@ import { connect } from 'react-redux'
   }
 }
 
-export default connect(null,null)(withRouter(ArticleListHeader))
+const mapStatetoProps = (state)=>{
+  return {
+    account : state.auth.user
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+      openModal: () => dispatch(login_modal_open())
+  }
+}
+
+export default connect(mapStatetoProps,mapDispatchToProps)(withRouter(ArticleListHeader))

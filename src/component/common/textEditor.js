@@ -2,8 +2,9 @@ import ReactQuill from 'react-quill';
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { bindActionCreators } from 'redux'; 
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom'
 import * as articleActions from '../../reducer/Article/actions';
 
 import styeld from 'styled-components';
@@ -27,38 +28,7 @@ const Title = styeld.input`
   outline : none;
   font-size : 1.5remO;
 `
-// class CustomToolbar extends React.Component{
 
-//   render(){
-//     return(
-//       <div id="toolbar">
-//       <select className="ql-font">
-//         <option value="arial">
-//           Arial
-//         </option>
-//         <option value="comic-sans">Comic Sans</option>
-//         <option value="courier-new">Courier New</option>
-//         <option value="georgia">Georgia</option>
-//         <option value="helvetica">Helvetica</option>
-//         <option value="lucida">Lucida</option>
-//       </select>
-//       <select className="ql-size">
-//         <option value="extra-small">Size 1</option>
-//         <option value="small">Size 2</option>
-//         <option value="medium" >
-//           Size 3
-//         </option>
-//         <option value="large">Size 4</option>
-//       </select>
-//       <select className="ql-align" />
-//       <select className="ql-color" />
-//       <select className="ql-background" />
-//       <button className="ql-clean" />
-//       <button className="ql-image" />
-//     </div>
-//     )
-//   }
-// }
 function imageHandleChange (){
   const input = document.createElement('input');
   input.setAttribute('type', 'file');
@@ -78,88 +48,57 @@ function imageHandleChange (){
   }.bind(this)
 }
 
-class Editor extends React.Component {
 
+
+class Editor extends React.Component {
  
   state = { 
     title : '',
     editorHtml: '', 
     theme: 'snow',
-    image: []
+    image: [],
   }
 
-  
-
-  // static modules = {
-  //   toolbar: {
-  //     container: "#toolbar",
-  //     handlers : {
-  //       image : imageHandleChange
-  //     }
-  //   }
-  // };
-
-  // static formats = [
-  //   "header",
-  //   "font",
-  //   "size",
-  //   "bold",
-  //   "italic",
-  //   "underline",
-  //   "strike",
-  //   "blockquote",
-  //   "list",
-  //   "bullet",
-  //   "indent",
-  //   "link",
-  //   "image",
-  //   "color"
-  // ];
-
- 
 
   handleChange = html => {
-  	this.setState({ editorHtml: html });
+    this.setState({ editorHtml: html });
   }
 
   titleHandleChange = e => {
     const title = e.target.value;
-    this.setState({ title : title  })
+    this.setState({ title: title })
   }
-  
-  handleThemeChange (newTheme) {
+
+  handleThemeChange(newTheme) {
     if (newTheme === "core") newTheme = null;
     this.setState({ theme: newTheme })
   }
 
   onAddArticle = e => {
     const { params } = this.props;
-    const { title,editorHtml } = this.state;
-    const whereCollection = params.name.replace(":" , "");
-    
-    if(title.length < 3){
+    const { title, editorHtml } = this.state;
+    const whereCollection = params.name.replace(":", "");
+
+    if (title.length < 3) {
       alert("제목은 3자 이상 작성해야합니다.");
       return;
     }
-    if(editorHtml.length < 10){
+    if (editorHtml.length < 10) {
       alert("본문은 10자 이상 작성해야합니다.");
       return;
     }
 
-    this.props.articleActions.addArticle(whereCollection, title, editorHtml, null );
+    this.props.articleActions.addArticle(whereCollection, title, editorHtml, null);
   }
-  imageChange = ()=>{
-    console.log("image")
-  }
-  render () {
-    console.log(this.state)
+
+  render() {
     return (
       <div>
+        {!this.props.account ? <Redirect to="/"/> : null}
         <TitleDiv>
-          <Title placeholder="제목을 입력하세요" maxLength="40" value={this.state.title} onChange={this.titleHandleChange}/>
+          <Title placeholder="제목을 입력하세요" maxLength="40" value={this.state.title} onChange={this.titleHandleChange} />
         </TitleDiv>
-        {/* <CustomToolbar/> */}
-        <ReactQuill 
+        <ReactQuill
           theme={this.state.theme}
           onChange={this.handleChange}
           value={this.state.editorHtml}
@@ -167,10 +106,10 @@ class Editor extends React.Component {
           formats={Editor.formats}
           bounds={'.app'}
           placeholder={this.props.placeholder}
-         />
-         <Button onClick={this.onAddArticle}>글쓰기</Button>
-       </div>
-     )
+        />
+        <Button onClick={this.onAddArticle}>글쓰기</Button>
+      </div>
+    )
   }
 }
 
@@ -212,10 +151,23 @@ Editor.modules = {
   }
 
 
+/* 
+ * PropType validation
+ */
+Editor.propTypes = {
+  placeholder: PropTypes.string,
+}
 
-  const mapDispatchToProps = (dispatch) => {
-    return {
-      articleActions : bindActionCreators(articleActions,dispatch),
-    }
+const mapStateToProps = (state) =>{
+  return {
+    account : state.auth.user
   }
-  export default connect(null,mapDispatchToProps)(Editor);
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    articleActions: bindActionCreators(articleActions, dispatch),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Editor);
