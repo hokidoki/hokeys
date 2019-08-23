@@ -3,9 +3,6 @@ import ReactHtmlParser from 'react-html-parser';
 
 export default class Article extends Component {
 
-    componentWillUnmount(){
-        console.log(10);
-    }
     render() {
         const contents = ReactHtmlParser(this.props.content);
         return (

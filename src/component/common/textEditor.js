@@ -25,16 +25,98 @@ const Title = styeld.input`
   margin-left : 10px;
   width : 80%;
   outline : none;
-  font-size : 1.5rem;
+  font-size : 1.5remO;
 `
+// class CustomToolbar extends React.Component{
+
+//   render(){
+//     return(
+//       <div id="toolbar">
+//       <select className="ql-font">
+//         <option value="arial">
+//           Arial
+//         </option>
+//         <option value="comic-sans">Comic Sans</option>
+//         <option value="courier-new">Courier New</option>
+//         <option value="georgia">Georgia</option>
+//         <option value="helvetica">Helvetica</option>
+//         <option value="lucida">Lucida</option>
+//       </select>
+//       <select className="ql-size">
+//         <option value="extra-small">Size 1</option>
+//         <option value="small">Size 2</option>
+//         <option value="medium" >
+//           Size 3
+//         </option>
+//         <option value="large">Size 4</option>
+//       </select>
+//       <select className="ql-align" />
+//       <select className="ql-color" />
+//       <select className="ql-background" />
+//       <button className="ql-clean" />
+//       <button className="ql-image" />
+//     </div>
+//     )
+//   }
+// }
+function imageHandleChange (){
+  const input = document.createElement('input');
+  input.setAttribute('type', 'file');
+  input.setAttribute('accept', 'image/*');
+  input.click();
+  input.onchange = function() {
+    const file = input.files[0];
+    const reader = new FileReader();
+
+    reader.readAsDataURL(file);
+
+    reader.onload = () =>{
+      console.log(reader.result)
+      const cursorPosition = this.quill.getSelection().index;
+      this.quill.insertEmbed(cursorPosition, 'image', reader.result)
+    }
+  }.bind(this)
+}
 
 class Editor extends React.Component {
+
  
   state = { 
     title : '',
     editorHtml: '', 
-    theme: 'snow' 
+    theme: 'snow',
+    image: []
   }
+
+  
+
+  // static modules = {
+  //   toolbar: {
+  //     container: "#toolbar",
+  //     handlers : {
+  //       image : imageHandleChange
+  //     }
+  //   }
+  // };
+
+  // static formats = [
+  //   "header",
+  //   "font",
+  //   "size",
+  //   "bold",
+  //   "italic",
+  //   "underline",
+  //   "strike",
+  //   "blockquote",
+  //   "list",
+  //   "bullet",
+  //   "indent",
+  //   "link",
+  //   "image",
+  //   "color"
+  // ];
+
+ 
 
   handleChange = html => {
   	this.setState({ editorHtml: html });
@@ -70,11 +152,13 @@ class Editor extends React.Component {
     console.log("image")
   }
   render () {
+    console.log(this.state)
     return (
       <div>
         <TitleDiv>
           <Title placeholder="제목을 입력하세요" maxLength="40" value={this.state.title} onChange={this.titleHandleChange}/>
         </TitleDiv>
+        {/* <CustomToolbar/> */}
         <ReactQuill 
           theme={this.state.theme}
           onChange={this.handleChange}
@@ -92,16 +176,18 @@ class Editor extends React.Component {
 
 
 Editor.modules = {
-    toolbar: [
-      [{ 'header': '1'}, {'header': '2'}, { 'font': [] }],
-      [{size: []}],
-      ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-      [{'list': 'ordered'}, {'list': 'bullet'}, 
-       {'indent': '-1'}, {'indent': '+1'}],
-      ['link', 'image', 'video'],
-      ['clean']
-    ],
-    clipboard: {
+    toolbar: {
+      container : [
+        [{ 'header': '1'}, {'header': '2'}, { 'font': [] }],
+        [{size: []}],
+        ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+        [{'list': 'ordered'}, {'list': 'bullet'}, 
+         {'indent': '-1'}, {'indent': '+1'}],
+        ['link', 'image', 'video'],
+        ['clean']]
+    ,handlers :{
+      image : imageHandleChange
+    }},clipboard: {
       // toggle to add extra line breaks when pasting HTML:
       matchVisual: false,
     },
@@ -110,6 +196,7 @@ Editor.modules = {
    * Quill editor formats
    * See https://quilljs.com/docs/formats/
    */
+
   Editor.formats = [
     'header', 'font', 'size',
     'bold', 'italic', 'underline', 'strike', 'blockquote',
