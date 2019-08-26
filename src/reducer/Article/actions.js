@@ -17,7 +17,6 @@ export const addArticle = (whereCollection,title,content) =>{
 
       
         ArticleAPI.imageSrcSet(content,whereCollection).then((doc)=>{
-                console.log(doc);
                 ArticleAPI.addArticle({whereCollection,title,userId,doc,userDisplayName,userProfileUrl})
             .then(()=>{
                 dispatch(addArticleSuccess());
@@ -38,6 +37,7 @@ export const getArticleList = (collection,lastItem,count) =>{ return (dispatch, 
     dispatch(getArticleListRequest())
     ArticleAPI.getArticleList(collection,lastItem,count)
     .then((snapShot) => {
+        console.log(snapShot.size)
         dispatch(getArticleListSuccess({
             list : snapShot.docs,
             isConcat : lastItem ? true : false,
@@ -74,7 +74,7 @@ const getArticleFailed = createAction(types.GET_ARTICLE_FAILED);
 export const getArticleReset = createAction(types.GET_ARTICLE_RESET);
 
 export const getArticle = (collection,articleId) =>{
-    return (dispatch,getState)=>{
+    return (dispatch)=>{
         dispatch(getArticleRequest);
         ArticleAPI.getArticle(collection,articleId)
         .then((snapShot)=>{
@@ -88,3 +88,19 @@ export const getArticle = (collection,articleId) =>{
     }
 }
 
+const deleteArticleRequest = createAction(types.DELETE_ARTICLE_REQUEST);
+const deleteArticleSuccess = createAction(types.DELETE_ARTICLE_SUCCESS);
+const deleteArticleFailed = createAction(types.DELETE_ARTICLE_FAILED);
+
+export const deleteArticle = (whereCollection,articleId) =>{
+    return (dispatch)=>{
+        dispatch(deleteArticleRequest);
+        ArticleAPI.deleteArticle(whereCollection,articleId).then(()=>{
+            dispatch(deleteArticleSuccess())
+            dispatch(goToCommunity(whereCollection))
+        }).catch((error)=>{
+            dispatch(deleteArticleFailed(error))
+        })
+
+    }
+}

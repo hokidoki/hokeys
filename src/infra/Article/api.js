@@ -7,8 +7,7 @@ export function imageSrcSet(content,whereCollection){
         tempDiv.innerHTML = content;    
     
         let img = tempDiv.getElementsByTagName("img");
-    
-        if(img){
+        if(img.length){
             let array = [];
                 for(let i = 0; i <= img.length-1; i++){
                     let dataUrl = img[i].src;
@@ -98,4 +97,8 @@ export function getArticleList(whereCollection,lastItem,count){
 
 export function getArticle(where,articleId){
     return firebase.firestore().collection(where).doc(articleId).get();
+}
+
+export function deleteArticle(whereCollection,articleId){
+    return firebase.firestore().collection(whereCollection).doc(articleId).delete();
 }

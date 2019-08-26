@@ -26,14 +26,14 @@ class ArticlePage extends Component {
     }
     
     render() {
-        const {article} = this.props;
+        const {article,account,collection} = this.props;
         let item;
         if(article){
             item = article.doc.data();
         }
         return (
             <div className="articleContainner">
-                { article ? <Article id={item.id} title={item.title} content={item.content}/> : null}
+                { article ? <Article account={account} id={item.id} title={item.title} userId ={item.userId} content={item.content} collection={collection}/>   : null}
             </div>
         )
     }

@@ -25,18 +25,10 @@ import '../../style/articleListItem.css'
         }
     }
 
-    // componentDidUpdate(oldProps) {
-    //     const newProps = this.props;
-    //     console.log(190)
-    //     if(oldProps.params.name !== newProps.params.name) {
-    //         const { params } = newProps;
-    //         this.props.getArticleList(params.name,null,100);
-    //     }
-    // }
-
   
     render() {
-        const { list,params,history,location,showArticle } = this.props;
+        const { list,params,history,location,showArticle,account } = this.props;
+        console.log(account)
         const query = querystring.parse(location.search);
         const listView = list.map((doc, index) => {
             const item = doc.data();
@@ -78,7 +70,7 @@ import '../../style/articleListItem.css'
             <div className="articleListPage">
                 <Notice/>
                 <ArticleListHeader params={params}/>
-                {query.id != null ? <ArticlePage collection={params.name} id={query.id}/> : null }
+                {query.id != null ? <ArticlePage account ={account} collection={params.name} id={query.id}/> : null }
                 { list ? listView : null}
                 { list ? listIndex(): null}
             </div>
@@ -104,6 +96,7 @@ class ListIndex extends Component{
 
 const mapStateToProps = (state) => {
     return {
+        account : state.auth.user,
         list: state.article.articleList.list,
         isLoading: state.article.articleList.isLoading,
         showArticle : state.article.showArticle.showArticle
