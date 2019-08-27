@@ -1,8 +1,7 @@
 import firebase from 'firebase';
 import uuid from 'uuid';
 
-export function imageSrcSet(content,whereCollection){
-    return new Promise((resolve,reject)=>{
+export async function imageSrcSet(content,whereCollection){
         let tempDiv = document.createElement('div');
         tempDiv.innerHTML = content;    
     
@@ -27,32 +26,40 @@ export function imageSrcSet(content,whereCollection){
                             extension = "?"; break;
                     }
                     const docName = `${whereCollection}/${fileName}.${extension}`;
-                    let articleRef = firebase.storage().ref().child(docName);
 
-                    articleRef.putString(dataUrl,'data_url').then((snapshot)=>{
-                        return snapshot.ref.getDownloadURL();
-                    }).then((downloadURL)=>{
+                    await putSting(dataUrl,docName).then((downloadURL)=>{
                         tempDiv.getElementsByTagName("img")[i].src = downloadURL;
+                        tempDiv.getElementsByTagName("img")[i].className = "articleImg"
                         array.push(docName);
-                        console.log(tempDiv.outerHTML);
-                        if(i === img.length-1){
-                            resolve({
-                                content : tempDiv.outerHTML,
-                                imgDocNames : array
-                        })
-                    }
+                    })
+                }
+                return new Promise((resolve)=>{
+                                resolve({
+                                    content : tempDiv.outerHTML,
+                                    imgDocNames : array
+                                })
                 })
-            }
-        }else{
-            resolve({
-                content : tempDiv.outerHTML
-            })
+            }else{
+                return new Promise((resolve)=>{
+                    resolve({
+                        content : tempDiv.outerHTML
+                    })
+                })
         }
+}
+
+function putSting(dataUrl,docName){
+    return new Promise((resolve)=>{
+        let articleRef = firebase.storage().ref().child(docName);
+        articleRef.putString(dataUrl,'data_url').then((snapshot)=>{
+            resolve(snapshot.ref.getDownloadURL());
+        })
     })
 }
 
 
 export function addArticle({whereCollection,title,userId,doc,userDisplayName, userProfileUrl }) {
+    console.log(doc)
     if(doc.imgDocNames){
         const articleId = uuid.v1();
         return firebase.firestore().collection(`${whereCollection}`).doc(articleId).set({
