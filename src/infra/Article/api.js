@@ -10,28 +10,31 @@ export async function imageSrcSet(content,whereCollection){
             let array = [];
                 for(let i = 0; i <= img.length-1; i++){
                     let dataUrl = img[i].src;
-                    const fileName = uuid.v1();
-                    let extension = dataUrl.split(';')[0].split('/')[1];
-                    console.log(extension)
-                    switch(extension){
-                        case '/' :
-                            extension = "JPG"; break;
-                        case 'p' : 
-                            extension = "png"; break;
-                        case 'r' : 
-                            extension = "gif"; break;
-                        case 'u' :
-                            extension = "webp"; break;
-                        default : 
-                            extension = "?"; break;
+                    if(isDataURL(dataUrl)){
+                        console.log(19);
+                        const fileName = uuid.v1();
+                        let extension = dataUrl.split(';')[0].split('/')[1];
+                        console.log(extension)
+                        switch(extension){
+                            case '/' :
+                                extension = "JPG"; break;
+                            case 'p' : 
+                                extension = "png"; break;
+                            case 'r' : 
+                                extension = "gif"; break;
+                            case 'u' :
+                                extension = "webp"; break;
+                            default : 
+                                extension = "?"; break;
+                        }
+                        const docName = `${whereCollection}/${fileName}.${extension}`;
+    
+                        await putSting(dataUrl,docName).then((downloadURL)=>{
+                            tempDiv.getElementsByTagName("img")[i].src = downloadURL;
+                            tempDiv.getElementsByTagName("img")[i].className = "articleImg"
+                            array.push(docName);
+                        })
                     }
-                    const docName = `${whereCollection}/${fileName}.${extension}`;
-
-                    await putSting(dataUrl,docName).then((downloadURL)=>{
-                        tempDiv.getElementsByTagName("img")[i].src = downloadURL;
-                        tempDiv.getElementsByTagName("img")[i].className = "articleImg"
-                        array.push(docName);
-                    })
                 }
                 return new Promise((resolve)=>{
                                 resolve({
@@ -55,6 +58,11 @@ function putSting(dataUrl,docName){
             resolve(snapshot.ref.getDownloadURL());
         })
     })
+}
+
+function isDataURL(s) {
+    const dataUrlRegex = /^\s*data:([a-z]+\/[a-z0-9-+.]+(;[a-z-]+=[a-z0-9-]+)?)?(;base64)?,([a-z0-9!$&',()*+;=\-._~:@/?%\s]*)\s*$/i;
+    return !!s.match(dataUrlRegex);
 }
 
 

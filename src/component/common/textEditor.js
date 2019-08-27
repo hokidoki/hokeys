@@ -3,8 +3,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import { bindActionCreators } from 'redux';
+import querystring from 'query-string'
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom'
+import { Redirect, withRouter } from 'react-router-dom'
 import * as articleActions from '../../reducer/Article/actions';
 
 import styeld from 'styled-components';
@@ -59,6 +60,15 @@ class Editor extends React.Component {
     image: [],
   }
 
+  componentDidMount(){
+    const {location,params,getArticle} = this.props
+    const query = querystring.parse(location.search);
+    if(query.mod === "update"){
+      // console.log(params);
+      // console.log(query.id)
+      getArticle(params.name,query.id)
+    }
+  }
 
   handleChange = html => {
     this.setState({ editorHtml: html });
@@ -160,14 +170,15 @@ Editor.propTypes = {
 
 const mapStateToProps = (state) =>{
   return {
-    account : state.auth.user
+    account : state.auth.user,
+    getArticle : state.article.getArticle.doc
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    articleActions: bindActionCreators(articleActions, dispatch),
+    getArticle : bindActionCreators(articleActions.getArticleForUpdate,dispatch)
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Editor);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Editor));

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Redirect ,Switch, Route } from 'react-router-dom'
 
 import Coummnity from './agora/communityPage'
-import AddArticlePage from './addArticlePage/addArticlePage'
+import ArticlePage from './ArticlePage/ArticlePage'
 
 import '../style/mainpage.css'
 import { connect } from 'react-redux';
@@ -16,7 +16,7 @@ import { connect } from 'react-redux';
                 <Switch>
                     <Route path="/community/:name"  component={Coummnity} />
                     {
-                        account ? <Route path="/addArticle/:name" component={AddArticlePage}/> : <Redirect to="/"/>
+                        account ? <Route path="/Article/:name" component={ArticlePage}/> : <Redirect to="/"/>
                     }
                 </Switch>
             </div>

@@ -13,7 +13,7 @@ import {login_modal_open} from '../../reducer/loginBoxReducer'
   goToWriteArticle =()=>{
     const { params,account,openModal } = this.props;
     if(account){
-      this.props.history.push(`/addArticle/:${params.name}`);
+      this.props.history.push(`/Article/:${params.name}?mod="add"`);
     }else{
       openModal();
     }

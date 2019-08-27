@@ -88,6 +88,29 @@ export const getArticle = (collection,articleId) =>{
     }
 }
 
+export const getArticleForUpdate = (collection,articleId) =>{
+    return (dispatch,getState)=>{
+        dispatch(getArticleRequest);
+        ArticleAPI.getArticle(collection,articleId)
+        .then((snapShot)=>{
+            const articleOwner = snapShot.data().userId;
+            const currentUser = getState().auth.user.uid;
+            if(articleOwner === currentUser){
+                dispatch(getArticleSuccess({
+                    doc : snapShot
+                }))
+            }else{
+                return new Promise((resolve,reject)=>{
+                    reject("it's not yours")
+                })
+            }
+        }).catch((error)=>{
+            console.log(error)
+            dispatch(getArticleFailed(error))
+        })
+    }
+}
+
 const deleteArticleRequest = createAction(types.DELETE_ARTICLE_REQUEST);
 const deleteArticleSuccess = createAction(types.DELETE_ARTICLE_SUCCESS);
 const deleteArticleFailed = createAction(types.DELETE_ARTICLE_FAILED);

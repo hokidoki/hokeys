@@ -28,7 +28,6 @@ import '../../style/articleListItem.css'
   
     render() {
         const { list,params,history,location,showArticle,account } = this.props;
-        console.log(account)
         const query = querystring.parse(location.search);
         const listView = list.map((doc, index) => {
             const item = doc.data();

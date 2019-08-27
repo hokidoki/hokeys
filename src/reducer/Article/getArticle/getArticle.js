@@ -7,7 +7,7 @@ const initialState = {
 }
 
 export default handleActions({
-    [type.GET_ARTICLE_REQUEST] : (state) => Object.assign({},state, {isLoading : true}),
+    [type.GET_ARTICLE_REQUEST] : (state) => Object.assign({},state, {isLoading : true, doc : ""}),
     [type.GET_ARTICLE_SUCCESS] : (state,action) => {
         const doc = action.payload;
         return Object.assign({},state, {isLoading : false , doc : doc})
