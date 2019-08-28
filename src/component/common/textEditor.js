@@ -2,15 +2,14 @@ import ReactQuill from 'react-quill';
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { bindActionCreators } from 'redux';
-import querystring from 'query-string'
 import { connect } from 'react-redux';
 import { Redirect, withRouter } from 'react-router-dom'
-import * as articleActions from '../../reducer/Article/actions';
+import * as articleActions from '../../reducer/Article/actions'
 
 import styeld from 'styled-components';
 import { Button } from 'semantic-ui-react';
 import '../../style/editor.css'
+import { bindActionCreators } from 'redux';
 
 
 const TitleDiv = styeld.div`
@@ -56,20 +55,23 @@ class Editor extends React.Component {
   state = { 
     title : '',
     editorHtml: '', 
-    theme: 'snow',
-    image: [],
+    theme : 'snow',
+    image : [],
+    mode : "add"
   }
-
   componentDidMount(){
-    const {location,params,getArticle} = this.props
-    const query = querystring.parse(location.search);
-    if(query.mod === "update"){
-      // console.log(params);
-      // console.log(query.id)
-      getArticle(params.name,query.id)
+    const { doc } = this.props;
+    console.log(doc);
+    if(doc){
+      this.setState({
+        title : doc.title,
+        editorHtml : doc.content,
+        theme : 'snow',
+        image : [],
+        mode : "modify"
+      })
     }
   }
-
   handleChange = html => {
     this.setState({ editorHtml: html });
   }
@@ -84,9 +86,9 @@ class Editor extends React.Component {
     this.setState({ theme: newTheme })
   }
 
-  onAddArticle = e => {
-    const { params } = this.props;
-    const { title, editorHtml } = this.state;
+  clickWriteButton = e => {
+    const { params,doc } = this.props;
+    const { title, editorHtml,mode } = this.state;
     const whereCollection = params.name.replace(":", "");
 
     if (title.length < 3) {
@@ -98,10 +100,15 @@ class Editor extends React.Component {
       return;
     }
 
-    this.props.articleActions.addArticle(whereCollection, title, editorHtml, null);
+    if(mode === "modify"){
+      this.props.updateArticle(whereCollection,doc.id,title,editorHtml);
+    }else if(mode === "add"){
+      this.props.addArticle(whereCollection, title, editorHtml, null);
+    }
   }
 
   render() {
+    console.log(this.state)
     return (
       <div>
         {!this.props.account ? <Redirect to="/"/> : null}
@@ -117,7 +124,7 @@ class Editor extends React.Component {
           bounds={'.app'}
           placeholder={this.props.placeholder}
         />
-        <Button onClick={this.onAddArticle}>글쓰기</Button>
+        <Button onClick={this.clickWriteButton}>쓰기</Button>
       </div>
     )
   }
@@ -171,13 +178,13 @@ Editor.propTypes = {
 const mapStateToProps = (state) =>{
   return {
     account : state.auth.user,
-    getArticle : state.article.getArticle.doc
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch) =>{
   return {
-    getArticle : bindActionCreators(articleActions.getArticleForUpdate,dispatch)
+    addArticle : bindActionCreators(articleActions.addArticle,dispatch),
+    updateArticle : bindActionCreators(articleActions.updateArticle,dispatch)
   }
 }
 

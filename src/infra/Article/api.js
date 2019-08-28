@@ -117,3 +117,34 @@ export function getArticle(where,articleId){
 export function deleteArticle(whereCollection,articleId){
     return firebase.firestore().collection(whereCollection).doc(articleId).delete();
 }
+
+export function updateArticle({whereCollection, articleId, title, doc, userId, userDisplayName, userProfileUrl,createdAt }){
+    if(doc.imgDocNames){
+        return firebase.firestore().collection(`${whereCollection}`).doc(articleId).update({
+            id: articleId,
+            title : title,
+            content : doc.content,
+            imgDocNames : doc.imgDocNames,
+            userId,
+            userDisplayName,
+            userProfileUrl,
+            likeCnt: 0,
+            commentCnt: 0,
+            createdAt: createdAt,
+            updatedAt: new Date()
+        });
+    }else{
+        return firebase.firestore().collection(`${whereCollection}`).doc(articleId).update({
+            id: articleId,
+            title : title,
+            content : doc.content,
+            userId,
+            userDisplayName,
+            userProfileUrl,
+            likeCnt: 0,
+            commentCnt: 0,
+            createdAt: createdAt,
+            updatedAt: new Date()
+        });
+    }
+}

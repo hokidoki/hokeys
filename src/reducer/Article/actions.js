@@ -127,3 +127,31 @@ export const deleteArticle = (whereCollection,articleId) =>{
 
     }
 }
+
+const updateArticleRequest = createAction(types.UPDATE_ARTICLE_REQUEST);
+const updateArticleSuccess = createAction(types.UPDATE_ARTICLE_SUCCESS);
+const updateArticleFailed = createAction(types.UPDATE_ARTICLE_FAILED);
+
+export const updateArticle = (whereCollection,articleId,title,content) =>{
+    return (dispatch,getState) =>{
+        dispatch(updateArticleRequest());
+        const state = getState();        
+        const userId = state.auth.user.uid;
+        const userDisplayName = state.auth.user.displayName;
+        const userProfileUrl = state.auth.user.photoURL;
+        const temp = state.article.getArticle.doc.doc.data();
+        const createdAt = temp.createdAt;
+        
+        console.log(createdAt);
+        
+        ArticleAPI.imageSrcSet(content,whereCollection).then((doc)=>{
+                ArticleAPI.updateArticle({whereCollection,articleId,title,doc,userId,userDisplayName,userProfileUrl,createdAt})
+            .then(()=>{
+                dispatch(updateArticleSuccess());
+                dispatch(push(`/community/${whereCollection}`));
+            }).catch((error)=>{
+                dispatch(updateArticleFailed(error));
+            })
+        })
+    }
+}
