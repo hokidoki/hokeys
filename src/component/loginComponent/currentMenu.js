@@ -6,7 +6,6 @@ import {bindActionCreators} from'redux'
 
 class CurrentMenu extends Component {
     render() {
-        console.log(this.props.signOut)
         return (
     
             <Menu.Item id="currentBox"className="loginbox">

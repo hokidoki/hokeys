@@ -1,17 +1,16 @@
 import firebase from 'firebase';
 import uuid from 'uuid';
 
-export async function imageSrcSet(content,whereCollection){
+export async function imageSrcSet(content,whereCollection,imgDocNames){
         let tempDiv = document.createElement('div');
         tempDiv.innerHTML = content;    
     
         let img = tempDiv.getElementsByTagName("img");
         if(img.length){
-            let array = [];
+            let array = imgDocNames ? imgDocNames : []; 
                 for(let i = 0; i <= img.length-1; i++){
                     let dataUrl = img[i].src;
                     if(isDataURL(dataUrl)){
-                        console.log(19);
                         const fileName = uuid.v1();
                         let extension = dataUrl.split(';')[0].split('/')[1];
                         console.log(extension)
@@ -34,8 +33,10 @@ export async function imageSrcSet(content,whereCollection){
                             tempDiv.getElementsByTagName("img")[i].className = "articleImg"
                             array.push(docName);
                         })
+                    }else{
+                        tempDiv.getElementsByTagName("img")[i].className = "articleImg"
                     }
-                }
+                }   
                 return new Promise((resolve)=>{
                                 resolve({
                                     content : tempDiv.outerHTML,

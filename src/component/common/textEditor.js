@@ -72,6 +72,12 @@ class Editor extends React.Component {
       })
     }
   }
+
+
+  componentWillUnmount(){
+    this.props.getArticleReset();
+  }
+
   handleChange = html => {
     this.setState({ editorHtml: html });
   }
@@ -108,7 +114,7 @@ class Editor extends React.Component {
   }
 
   render() {
-    console.log(this.state)
+    console.log(this.props)
     return (
       <div>
         {!this.props.account ? <Redirect to="/"/> : null}
@@ -184,7 +190,8 @@ const mapStateToProps = (state) =>{
 const mapDispatchToProps = (dispatch) =>{
   return {
     addArticle : bindActionCreators(articleActions.addArticle,dispatch),
-    updateArticle : bindActionCreators(articleActions.updateArticle,dispatch)
+    updateArticle : bindActionCreators(articleActions.updateArticle,dispatch),
+    getArticleReset : ()=>{dispatch(articleActions.getArticleReset)},
   }
 }
 

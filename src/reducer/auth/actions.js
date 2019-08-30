@@ -5,7 +5,8 @@ import * as modalActions from '../loginBoxReducer'
 
 
 //로그인 유저 갱신 
-export  const updateUser = createAction(types.UPDATE_USER);
+export const updateUser = createAction(types.UPDATE_USER);
+
 
 //페이스북 로그인 
 const signInWithFacebookRequest = createAction(types.SIGN_IN_WITH_FACEBOOK_REQUEST);
@@ -62,3 +63,4 @@ export const signOut = ()=>{
         })
     }
 }
+

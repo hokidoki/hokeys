@@ -12,6 +12,20 @@ class Navigation extends Component {
 
     state = {}
 
+    componentDidMount(){
+        const { location } = this.props
+        const path = location.pathname.split("/");
+
+        if(path[1] === "community"){
+            this.setState({
+                activeItem: path[2]
+            })
+        }else{
+            this.setState({
+                activeItem : "home"
+            })
+        }
+    }
     handleItemClick = (name) => {
         this.setState({
              activeItem: name 
@@ -55,7 +69,6 @@ class Navigation extends Component {
     }
     render() {
         const { activeItem } = this.state;
-
 
         return (
             <Menu vertical className="navibar">

@@ -19,6 +19,8 @@ class AddArticlePage extends Component {
           getArticleForUpdate(match.params.name,query.id)
         }
       }
+
+    
     
     
     render() {
@@ -27,10 +29,11 @@ class AddArticlePage extends Component {
         if(getArticle){
             doc = getArticle.doc.data();
         }
+        console.log(doc)
         return (
             <div className="addArticlePage">
                 <Notice></Notice>
-                <Editor doc={doc} params={match.params}></Editor>                    
+        { doc ? <Editor doc={doc} params={match.params}></Editor> :<Editor doc={doc} params={match.params}></Editor>}                    
             </div>
         )
     }
@@ -38,7 +41,8 @@ class AddArticlePage extends Component {
 
 const mapStateToProps = (state) =>{
     return {
-      getArticle : state.article.getArticle.doc
+      getArticle : state.article.getArticle.doc,
+      isLoading : state.article.getArticle.isLoading
     }
   }
   

@@ -27,7 +27,7 @@ var config ={
 firebase.initializeApp(config);
 
 firebase.auth().onAuthStateChanged((user)=>{
-    store.dispatch(authActions.updateUser(user));
+    store.dispatch(authActions.updateUser(user))
 })
 
 ReactDOM.render(

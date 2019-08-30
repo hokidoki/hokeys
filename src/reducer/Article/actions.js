@@ -141,10 +141,9 @@ export const updateArticle = (whereCollection,articleId,title,content) =>{
         const userProfileUrl = state.auth.user.photoURL;
         const temp = state.article.getArticle.doc.doc.data();
         const createdAt = temp.createdAt;
-        
-        console.log(createdAt);
-        
-        ArticleAPI.imageSrcSet(content,whereCollection).then((doc)=>{
+        const docImage = temp.imgDocNames;
+
+        ArticleAPI.imageSrcSet(content,whereCollection,docImage).then((doc)=>{
                 ArticleAPI.updateArticle({whereCollection,articleId,title,doc,userId,userDisplayName,userProfileUrl,createdAt})
             .then(()=>{
                 dispatch(updateArticleSuccess());
