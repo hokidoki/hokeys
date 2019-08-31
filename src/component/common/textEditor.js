@@ -36,15 +36,19 @@ function imageHandleChange (){
   input.click();
   input.onchange = function() {
     const file = input.files[0];
+    const imgMaxSize =  2.2 * 1024 * 1024; // 2MB
     const reader = new FileReader();
-
+    if(file.size < imgMaxSize ){
     reader.readAsDataURL(file);
 
     reader.onload = () =>{
-      console.log(reader.result)
       const cursorPosition = this.quill.getSelection().index;
       this.quill.insertEmbed(cursorPosition, 'image', reader.result)
     }
+  }else{
+    alert("이미지는 2MB 이하만 가능합니다.");
+    return ; 
+  }
   }.bind(this)
 }
 
@@ -77,7 +81,11 @@ class Editor extends React.Component {
   componentWillUnmount(){
     this.props.getArticleReset();
   }
-
+  
+  goBack = () =>{
+    this.props.history.goBack();
+  }
+  
   handleChange = html => {
     this.setState({ editorHtml: html });
   }
@@ -131,6 +139,7 @@ class Editor extends React.Component {
           placeholder={this.props.placeholder}
         />
         <Button onClick={this.clickWriteButton}>쓰기</Button>
+        <Button onClick={this.goBack}>나가기</Button>
       </div>
     )
   }

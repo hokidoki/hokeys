@@ -58,6 +58,8 @@
 }
 
 #writeArticleButton{
+    margin-top: 2px;
+    margin-right: 10px;
     position: absolute;
     right: 0;
     float: right;
@@ -66,3 +68,32 @@
 .articleImg{
     max-width: 100%;
 }
+
+.getArticleTitle{
+    margin-top: 15px;
+    font-size: 1.5rem;
+    padding-bottom: 3px;
+    border-bottom: 1px solid rgba(214, 211, 211, 0.658)
+} 
+
+.articleContent{
+    margin-top: 15px;
+}
+
+.modifyDelete{
+    height: 36px;
+    position: relative;
+    margin-top: 15px;
+} 
+.modifyUl{
+    position: absolute;
+    right: 0;
+    margin : 0;
+}
+
+.modifyUl li{
+    float: left;
+    margin-right: 10px;
+    list-style-type : none;
+}
+

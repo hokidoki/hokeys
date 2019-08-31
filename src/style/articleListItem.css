@@ -1,5 +1,6 @@
 .IB{
   display: inline-block;
+  box-sizing: border-box;
 }
 .articleListItemContainner{
   border :  1px solid black;
@@ -8,10 +9,11 @@
 }
 .titleCreatedAtContainner{
   flex-grow: 9;
+  /* flex-basis: 70%; */
   flex-direction: column;
 }
 .adtional{
-  flex-grow: 1;
+  flex-basis: 100px;
   height: 4rem;
   display: flex;
 }

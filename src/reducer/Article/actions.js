@@ -147,6 +147,7 @@ export const updateArticle = (whereCollection,articleId,title,content) =>{
                 ArticleAPI.updateArticle({whereCollection,articleId,title,doc,userId,userDisplayName,userProfileUrl,createdAt})
             .then(()=>{
                 dispatch(updateArticleSuccess());
+                dispatch(getArticleReset());
                 dispatch(push(`/community/${whereCollection}`));
             }).catch((error)=>{
                 dispatch(updateArticleFailed(error));

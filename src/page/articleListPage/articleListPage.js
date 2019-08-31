@@ -41,6 +41,7 @@ import '../../style/articleListItem.css'
                 articleTitle = {item.title}
                 createdAt = {item.createdAt}
                 collection = {params.name}
+                image = {item.imgDocNames}
                 page = {pageNumb}
                 history ={history}
             />

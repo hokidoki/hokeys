@@ -21,16 +21,18 @@ import { withRouter } from 'react-router-dom'
     render() {
         const contents = ReactHtmlParser(this.props.content);
         const modifyDelete = 
-        <div>
-            <Button onClick={this.modifyArticle}>수정</Button><Button onClick={this.deleteArticle}>삭제</Button>
+        <div className="modifyDelete">
+            <ul className ="modifyUl">
+                <li><Button color='blue' className="mini ui button" onClick={this.modifyArticle}>수정</Button></li><li><Button color='red' className="mini ui button" onClick={this.deleteArticle}>삭제</Button></li>
+            </ul>
         </div>;
         return (
             <div className="articleContainner">
-                { this.props.account &&this.props.account.uid === this.props.userId ? 
-                    modifyDelete : null}
-                <div className="articleTitle">
+                <div className="getArticleTitle">
                     {this.props.title}      
                 </div>
+                { this.props.account &&this.props.account.uid === this.props.userId ? 
+                    modifyDelete : null}
                 <div className="articleContent">
                     {contents}
                 </div>

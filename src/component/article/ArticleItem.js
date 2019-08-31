@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { Icon } from 'semantic-ui-react'
+
 
 export default class ArticleItem extends Component {
 
@@ -37,10 +39,10 @@ export default class ArticleItem extends Component {
                     </div>
                 </div>
                 <div className="adtional IB">
-                    <div className="file IB center">
-                        {this.props.file ? "y" : "n"}
-                    </div>
                     <div className="picture IB center">
+                        {this.props.image ?  <Icon className="picture"/> : "n"}
+                    </div>
+                    <div className="file IB center">
                         {this.props.file ? "y" : "n"}
                     </div>
                 </div>
